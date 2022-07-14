@@ -73,3 +73,11 @@ header{
 .clicked {
     background-color: rgb(8, 90, 110);
 }
+
+.bomb{
+    background-color: red;
+}
+
+.you-lose{
+    background-color: red;
+}

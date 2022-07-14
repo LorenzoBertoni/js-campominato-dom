@@ -4,6 +4,7 @@ GENERAZIONE DELLE BOMBE:
     Inserisco il numero creato all'interno di una lista;-->(lista bombe)
         ?SE (bomba) è già presente in (lista bombe)
             Genero un nuovo numero casuale (bomba);
+
 IMPLEMENTAZIONE DELLE BOME:
     Quando l'utente clicca su una cella
         ?SE il numero appartenente alla cella == al numero generato casualmente (bomba)
