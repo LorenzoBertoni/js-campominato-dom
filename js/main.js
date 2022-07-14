@@ -3,6 +3,7 @@ const gridDom = document.getElementById('grid');
 const buttonDom = document.getElementById('play');
 const difficultyDom = document.getElementById('difficulty');
 let bombList = [];
+let score = 0;
 
 
 buttonDom.addEventListener('click', 
@@ -11,36 +12,36 @@ buttonDom.addEventListener('click',
         bombList = [];
 //difficoltà 1
         if (difficultyDom.value == 'easy') { //? Condizione per il cambio della difficoltà
-            let score = 0;
+            let cells = 100;
             for (let b = 0; b < 16; b++) { //ciclo per le bombe
                 let bomb = createUniqueBomb(bombList, 1, 100);
                 bombList.push(bomb);
             }
             console.log('bombe', bombList); //debug
 
-            for (let i = 1; i <= 100; i++) { //ciclo per le celle
+            for (let i = 1; i <= cells; i++) { //ciclo per le celle
 
                 let square = addSquare(); 
 
-                addClicked(square, i, gridDom);
+                addClicked(square, i, gridDom, cells);
 
                 if (bombList.includes(i)) {
                     square.classList.add('bomb');
                 }
-
             }
 //difficolta 2
         } else if (difficultyDom.value == 'normal') {
+            let cells = 81;
             for (let b = 0; b < 16; b++) { //ciclo per le bombe
                 let bomb = createUniqueBomb(bombList, 1, 81);
                 bombList.push(bomb);
             }
             console.log('bombe', bombList); //debug
 
-            for (let i = 1; i <= 81; i++) {
+            for (let i = 1; i <= cells; i++) {
                 let square = addNormalDiffSquare();
 
-                addClicked(square, i, gridDom, bombList);
+                addClicked(square, i, gridDom, cells);
 
                 if (bombList.includes(i)) {
                     square.classList.add('bomb');
@@ -48,16 +49,17 @@ buttonDom.addEventListener('click',
             }
 //difficolta 3
         } else if (difficultyDom.value == 'hard') { 
+            let cells = 49;
             for (let b = 0; b < 16; b++) { //ciclo per le bombe
                 let bomb = createUniqueBomb(bombList, 1, 49);
                 bombList.push(bomb);
             }
             console.log('bombe', bombList); //debug
 
-            for (let i = 1; i <= 49; i++) {
+            for (let i = 1; i <= cells; i++) {
                 let square = addHardDiffSquare();
 
-                addClicked(square, i, gridDom);
+                addClicked(square, i, gridDom, cells);
 
                 if (bombList.includes(i)) {
                     square.classList.add('bomb');
@@ -93,23 +95,31 @@ function createUniqueBomb (usedNumberList, min, max) {
     return createdNumber;
 }
 
-let score = 0;
+
+function result (element, dom, counter, cells) {
+    if (element.classList.contains('bomb')) {
+        element.classList.add('you-lose');
+        alert('hai perso');
+        alert('il tuo punteggio è ' + score);
+        score = 0;
+        dom.innerHTML = '';
+    } else if (counter == cells - 16) {
+        alert('hai vinto');
+        score = 0;
+        dom.innerHTML = '';
+    }
+}
 
 
-function addClicked(element, counter, dom) {
+
+function addClicked(element, counter, dom, cells) {
     element.append(counter); //* stampa il numero corrispondente alla posizione della cella
     element.addEventListener('click', //* al click della cella--->
         function () {
             this.classList.add('clicked');//*--> aggiunge la classe per cambiare colore
+            //console.log(clickedCells);
             score++;
-            console.log(counter); //*---> stampa in console il numero corrispondente alla cella
-                if (this.classList.contains('bomb')) {
-                    this.classList.add('you-lose');
-                    alert('hai perso');
-                    alert('il tuo punteggio e ' + score);
-                    score = 0;
-                    dom.innerHTML = '';
-                }
+            result(element, dom, score, cells); //? riga 96
         }
     );
     dom.append(element); //* stampo la cella nel mio container all'interno del DOM
