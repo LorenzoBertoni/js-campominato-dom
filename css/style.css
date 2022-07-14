@@ -23,9 +23,12 @@ header{
     align-items: center;
 }
 
+.logo {
+    width: 20%;
+}
+
 .title {
     font-size: 40px;
-    margin-left: 1rem;
 }
 
 #play {
@@ -75,7 +78,7 @@ header{
 }
 
 .bomb{
-    background-color: red;
+    background-color: transparent;
 }
 
 .you-lose{
