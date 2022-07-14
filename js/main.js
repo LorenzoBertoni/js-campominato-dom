@@ -5,8 +5,6 @@ const difficultyDom = document.getElementById('difficulty');
 let bombList = [];
 
 
-
-
 buttonDom.addEventListener('click', 
     function () {
         gridDom.innerHTML = '';
@@ -14,7 +12,6 @@ buttonDom.addEventListener('click',
 //difficoltà 1
         if (difficultyDom.value == 'easy') { //? Condizione per il cambio della difficoltà
             let score = 0;
-
             for (let b = 0; b < 16; b++) { //ciclo per le bombe
                 let bomb = createUniqueBomb(bombList, 1, 100);
                 bombList.push(bomb);
@@ -22,6 +19,7 @@ buttonDom.addEventListener('click',
             console.log('bombe', bombList); //debug
 
             for (let i = 1; i <= 100; i++) { //ciclo per le celle
+
                 let square = addSquare(); 
 
                 addClicked(square, i, gridDom);
@@ -37,6 +35,7 @@ buttonDom.addEventListener('click',
                 let bomb = createUniqueBomb(bombList, 1, 81);
                 bombList.push(bomb);
             }
+            console.log('bombe', bombList); //debug
 
             for (let i = 1; i <= 81; i++) {
                 let square = addNormalDiffSquare();
@@ -53,6 +52,7 @@ buttonDom.addEventListener('click',
                 let bomb = createUniqueBomb(bombList, 1, 49);
                 bombList.push(bomb);
             }
+            console.log('bombe', bombList); //debug
 
             for (let i = 1; i <= 49; i++) {
                 let square = addHardDiffSquare();
@@ -93,6 +93,7 @@ function createUniqueBomb (usedNumberList, min, max) {
     return createdNumber;
 }
 
+let score = 0;
 
 
 function addClicked(element, counter, dom) {
@@ -100,15 +101,17 @@ function addClicked(element, counter, dom) {
     element.addEventListener('click', //* al click della cella--->
         function () {
             this.classList.add('clicked');//*--> aggiunge la classe per cambiare colore
-            //console.log(counter); //*---> stampa in console il numero corrispondente alla cella
+            score++;
+            console.log(counter); //*---> stampa in console il numero corrispondente alla cella
                 if (this.classList.contains('bomb')) {
                     this.classList.add('you-lose');
                     alert('hai perso');
+                    alert('il tuo punteggio e ' + score);
+                    score = 0;
                     dom.innerHTML = '';
                 }
         }
     );
-    
     dom.append(element); //* stampo la cella nel mio container all'interno del DOM
 }
 
