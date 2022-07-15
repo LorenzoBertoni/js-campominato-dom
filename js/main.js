@@ -17,7 +17,6 @@ buttonDom.addEventListener('click',
                 let bomb = createUniqueBomb(bombList, 1, 100);
                 bombList.push(bomb);
             }
-            console.log('bombe', bombList); //debug
 
             for (let i = 1; i <= cells; i++) { //ciclo per le celle
 
@@ -36,7 +35,6 @@ buttonDom.addEventListener('click',
                 let bomb = createUniqueBomb(bombList, 1, 81);
                 bombList.push(bomb);
             }
-            console.log('bombe', bombList); //debug
 
             for (let i = 1; i <= cells; i++) {
                 let square = addNormalDiffSquare();
@@ -54,7 +52,6 @@ buttonDom.addEventListener('click',
                 let bomb = createUniqueBomb(bombList, 1, 49);
                 bombList.push(bomb);
             }
-            console.log('bombe', bombList); //debug
 
             for (let i = 1; i <= cells; i++) {
                 let square = addHardDiffSquare();
