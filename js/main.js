@@ -116,6 +116,9 @@ function addClicked(element, counter, dom, cells) {
             this.classList.add('clicked');//*--> aggiunge la classe per cambiare colore
             //console.log(clickedCells);
             score++;
+                if (this.classList.contains('bomb')) {
+                    score--;
+                }
             result(element, dom, score, cells); //? riga 96
         }
     );
